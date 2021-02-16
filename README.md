@@ -12,6 +12,9 @@ Discord Sunucum: https://discord.gg/seh29UZZuK
 Not: Kurulumunu, kullanımını öğrenmek veya yardım almak için Discord sunucuma gelebilirsiniz!
 
 
+
+
+
 [EN]
 Advanced Vehicle Lock System | Hotwire & Lockpick
 
