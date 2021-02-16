@@ -24,4 +24,4 @@ Requirements:
 - https://github.com/ONyambura/mythic_progbar | T0sic Loading Bar
 
 My Discord Server: https://discord.gg/seh29UZZuK
-Not: You can join my Discord server to get help, learn installation or usage.
+Note: You can join my Discord server to get help, learn installation or usage.
