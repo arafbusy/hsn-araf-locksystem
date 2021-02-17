@@ -400,7 +400,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterClientEvent('hsn-araf-locksystem:setVehicleLock')
+RegisterNetEvent('hsn-araf-locksystem:setVehicleLock')
 AddEventHandler('hsn-araf-locksystem:setVehicleLock', function(vehicle, lock)
     if lock then
         for k, v in pairs(unlocked_vehicles) do
