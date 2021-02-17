@@ -100,7 +100,7 @@ ESX.RegisterServerCallback('hsn-araf-locksystem:getOwnedVehicles', function(sour
     local xPlayer = ESX.GetPlayerFromId(src)
 
     if xPlayer ~= nil then
-        local plate = MySQL.Async.fetchAll('SELECT plate FROM owned_vehicles WHERE id = @id',
+        local plate = MySQL.Async.fetchAll('SELECT plate FROM owned_vehicles WHERE owner = @id',
         {
             ['@id'] = xPlayer.identifier
         })
