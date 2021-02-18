@@ -16,6 +16,8 @@ server_scripts {
 
     'server/server.lua',
     'config.lua',
+    
+    '@mysql-async/lib/MySQL.lua'
 }
 
 exports {
