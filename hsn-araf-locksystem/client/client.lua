@@ -288,7 +288,7 @@ Citizen.CreateThread(function()
                     exports['mythic_notify']:SendAlert('inform', _U('vehicle_locked'))
                 elseif lock == 2 then
                     playAnim("anim@mp_player_intmenu@key_fob@", "fob_click_fp", -1, 0)
-                    TriggerClientEvent('hsn-araf-locksystem:setVehicleLock', vehicle, false)
+                    TriggerEvent('hsn-araf-locksystem:setVehicleLock', vehicle, false)
 					PlayVehicleDoorOpenSound(vehicle, 0)
 					SetVehicleLights(vehicle, 2)
 					SetVehicleLights(vehicle, 0)
