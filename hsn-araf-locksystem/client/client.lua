@@ -3,8 +3,6 @@ ESX = nil
 Keys = {}
 PlayerData = {}
 SearchedVeh = {}
-locked_vehicles = {}
-unlocked_vehicles = {}
 local disableF = false
 
 Citizen.CreateThread(function()
@@ -175,7 +173,6 @@ Citizen.CreateThread(function()
                                                                 ClearPedTasks(GetPlayerPed(-1))
                                                                 EnableAllControlActions(0)
                                                                 EnableAllControlActions(1)
-                                                                TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'tornavida')
                                                                 TriggerServerEvent('hsn-araf-locksystem:addKeys',Plate)
                                                                 SetVehicleEngineOn(vehicle,true)
                                                                 exports['mythic_notify']:SendAlert('inform', _U('hotwire_successful'))
@@ -279,7 +276,7 @@ Citizen.CreateThread(function()
                     SetVehicleDoorShut(vehicle, 1, false)
                     SetVehicleDoorShut(vehicle, 2, false)
                     SetVehicleDoorShut(vehicle, 3, false)
-                    TriggerEvent('hsn-araf-locksystem:setVehicleLock', vehicle, true)
+                    SetVehicleDoorsLocked(vehicle, 2)
                     PlayVehicleDoorCloseSound(vehicle, 1)
                     SetVehicleLights(vehicle, 2)
                     SetVehicleLights(vehicle, 0)
@@ -288,7 +285,7 @@ Citizen.CreateThread(function()
                     exports['mythic_notify']:SendAlert('inform', _U('vehicle_locked'))
                 elseif lock == 2 then
                     playAnim("anim@mp_player_intmenu@key_fob@", "fob_click_fp", -1, 0)
-                    TriggerEvent('hsn-araf-locksystem:setVehicleLock', vehicle, false)
+                    SetVehicleDoorsLocked(vehicle, 1)
 					PlayVehicleDoorOpenSound(vehicle, 0)
 					SetVehicleLights(vehicle, 2)
 					SetVehicleLights(vehicle, 0)
@@ -351,7 +348,7 @@ AddEventHandler('hsn-araf-locksystem:client:useLockpick', function()
         TaskStartScenarioAtPosition(playerPed, 'PROP_HUMAN_PARKING_METER', scenarioCoords, GetEntityHeading(playerPed), 10000, false, false)
         exports["t0sic_loadingbar"]:StartDelayedFunction(_U('lockpick'), 10000, function()
 			SetVehicleDoorsLockedForAllPlayers(vehicle, false)
-            TriggerEvent('hsn-araf-locksystem:setVehicleLock', vehicle, false)
+            SetVehicleDoorsLocked(vehicle, 1)
 			ClearPedTasksImmediately(playerPed)
             TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'lockpick')
 			--ESX.ShowNotification(_U('vehicle_unlocked'))
@@ -366,57 +363,25 @@ end)
 
 Citizen.CreateThread(function()
     while true do
-        local veh = GetVehiclePedIsTryingToEnter(PlayerPedId())
-        local lock = GetVehicleDoorLockStatus(veh)
-        if lock == 7 or lock == 1 or lock == 0 then
-            SetVehicleDoorsLocked(veh, 2)
-        end
+        if DoesEntityExist(GetVehiclePedIsTryingToEnter(PlayerPedId())) then
+            local veh = GetVehiclePedIsTryingToEnter(PlayerPedId())
+            local lock = GetVehicleDoorLockStatus(veh)
+            local luck = math.random(1, 100)
 
-        for k, v in pairs(locked_vehicles) do
-            SetVehicleDoorsLocked(v, 2)
-        end
-        for k, v in pairs(unlocked_vehicles) do
-            SetVehicleDoorsLocked(v, 1)
-        end
-        Citizen.Wait(50)
-    end
-end)
+            if Config.UnlockedChance >= 100 then
+                Config.UnlockedChance = 100
+            elseif Config.UnlockedChance <= 0 then
+                Config.UnlockedChance = 0
+            end
 
-Citizen.CreateThread(function()
-    while true do
-        ESX.TriggerServerCallback('hsn-araf-locksystem:getOwnedVehicles', function(cb)
-            if cb ~= nil then
-                if cb ~= false then
-                    for k, v in pairs(ESX.Game.GetVehicles()) do
-                        local plate = GetVehicleNumberPlateText(v)
-                        if cb == plate then
-                            AddKeys(plate)
-                        end
-                    end
+            if lock == 0 or lock == 3 or lock == 7 or lock == 8 or lock == 10 then
+                if Config.UnlockedChance > luck then
+                    SetVehicleDoorsLocked(veh, 2)
+                else
+                    SetVehicleDoorsLocked(veh, 1)
                 end
             end
-        end)
-        Citizen.Wait(1000)
-    end
-end)
-
-RegisterNetEvent('hsn-araf-locksystem:setVehicleLock')
-AddEventHandler('hsn-araf-locksystem:setVehicleLock', function(vehicle, lock)
-    if lock then
-        for k, v in pairs(unlocked_vehicles) do
-            if v == vehicle then
-                table.remove(unlocked_vehicles, k)
-                break
-            end
         end
-        table.insert(locked_vehicles, vehicle)
-    elseif not lock then
-        for k, v in pairs(locked_vehicles) do
-            if v == vehicle then
-                table.remove(locked_vehicles, k)
-                break
-            end
-        end
-        table.insert(unlocked_vehicles, vehicle)
+        Citizen.Wait(10)
     end
 end)
