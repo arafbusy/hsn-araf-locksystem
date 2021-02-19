@@ -94,19 +94,3 @@ end)
 ESX.RegisterUsableItem('lockpick', function(source)
     TriggerClientEvent('hsn-araf-locksystem:client:useLockpick', source)
 end)
-
-ESX.RegisterServerCallback('hsn-araf-locksystem:getOwnedVehicles', function(source, cb)
-    local src = source
-    local xPlayer = ESX.GetPlayerFromId(src)
-
-    if xPlayer ~= nil then
-        local plate = MySQL.Async.fetchAll('SELECT plate FROM owned_vehicles WHERE owner = @id',
-        {
-            ['@id'] = xPlayer.identifier
-        })
-
-        cb(plate)
-    else
-        cb(false)
-    end
-end)
