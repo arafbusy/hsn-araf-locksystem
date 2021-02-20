@@ -11,6 +11,8 @@ Config.MaxItemAmount = 3
 Config.AnimDict = "anim@veh@std@panto@ds@base"
 Config.AnimName = "hotwire"
 
+Config.UnlockedChance = 0
+
 Config.AlarmTime = 10 -- seconds
 Config.HighChanceItems = {
     'goldbar',
