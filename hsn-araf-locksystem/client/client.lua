@@ -3,6 +3,7 @@ ESX = nil
 Keys = {}
 PlayerData = {}
 SearchedVeh = {}
+locked_vehicles = {}
 local disableF = false
 
 Citizen.CreateThread(function()
@@ -277,6 +278,7 @@ Citizen.CreateThread(function()
                     SetVehicleDoorShut(vehicle, 2, false)
                     SetVehicleDoorShut(vehicle, 3, false)
                     SetVehicleDoorsLocked(vehicle, 2)
+                    table.insert(locked_vehicles, vehicle)
                     PlayVehicleDoorCloseSound(vehicle, 1)
                     SetVehicleLights(vehicle, 2)
                     SetVehicleLights(vehicle, 0)
@@ -286,6 +288,12 @@ Citizen.CreateThread(function()
                 elseif lock == 2 then
                     playAnim("anim@mp_player_intmenu@key_fob@", "fob_click_fp", -1, 0)
                     SetVehicleDoorsLocked(vehicle, 1)
+                    for k, v in pairs(locked_vehicles) do
+                        if v == vehicle then
+                            table.remove(locked_vehicles, k)
+                            break
+                        end
+                    end
 					PlayVehicleDoorOpenSound(vehicle, 0)
 					SetVehicleLights(vehicle, 2)
 					SetVehicleLights(vehicle, 0)
@@ -307,15 +315,8 @@ Citizen.CreateThread(function()
             local plate = GetVehicleNumberPlateText(curveh)
             if Keys[plate] ~= PlayerData.identifier and DoesEntityExist(pedDriver) and IsEntityDead(pedDriver) and not IsPedAPlayer(pedDriver)  then
                 wait = 1
-                disableMovement()
-                disableCarMovements()
-                disableCombat()
-                exports["t0sic_loadingbar"]:StartDelayedFunction(_U('taking_keys'), 2000, function()
-                    EnableAllControlActions(0)
-                    EnableAllControlActions(1)
-                    TriggerServerEvent('hsn-araf-locksystem:addKeys',plate)
-                    exports['mythic_notify']:SendAlert('inform', _U('took_keys', plate))
-                end)
+                TriggerServerEvent('hsn-araf-locksystem:addKeys',plate)
+                exports['mythic_notify']:SendAlert('inform', _U('took_keys', plate))
             end
         end
         Citizen.Wait(wait)
@@ -374,12 +375,14 @@ Citizen.CreateThread(function()
                 Config.UnlockedChance = 0
             end
 
-            if lock == 0 or lock == 3 or lock == 7 or lock == 8 or lock == 10 then
-                if Config.UnlockedChance > luck then
-                    SetVehicleDoorsLocked(veh, 2)
-                else
-                    SetVehicleDoorsLocked(veh, 1)
-                end
+            if (Config.UnlockedChance >= luck) then
+                SetVehicleDoorsLocked(veh, 1)
+            elseif (GetConvertibleRoofState(veh) == 1) or (GetConvertibleRoofState(veh) == 2) then
+                SetVehicleDoorsLocked(veh, 1)
+            elseif (IsVehicleDoorFullyOpen(veh, 0)) or (IsVehicleDoorFullyOpen(veh, 1)) or (IsVehicleDoorFullyOpen(veh, 2)) or (IsVehicleDoorFullyOpen(veh, 3)) or not DoesVehicleHaveDoor(veh, 0) then
+                SetVehicleDoorsLocked(veh, 1)
+            elseif lock == 0 or lock == 7 or lock == 3 then
+                SetVehicleDoorsLocked(veh, 2)
             end
         end
         Citizen.Wait(10)
