@@ -11,9 +11,9 @@ Script Hasan'ın yapmış olduğu hotwire sisteminin üzerine geliştirilmiştir
 - Config ve Locale dosyaları oluşturularak düzenli bir yapı sağlanmıştır. Config'den istediğiniz gibi bir şeyleri değiştirebilir, locale ile istediğiniz dile çevirebilirsiniz.
 
 ### Gereksinimler
-Mythic Notify : https://github.com/FlawwsX/mythic_notify
-Reload Skillbar : http://www.mediafire.com/file/0ghzkjpnnllnt95/reload-skillbar.rar/file
-T0sic Loading Bar : https://github.com/t0sic/t0sic_loadingbar
+https://github.com/FlawwsX/mythic_notify | Mythic Notify
+http://www.mediafire.com/file/0ghzkjpnnllnt95/reload-skillbar.rar/file | Reload Skillbar
+https://github.com/t0sic/t0sic_loadingbar | T0sic Loading Bar
 
 ### Kurulum
 - Dosyayı indirdikten sonra sunucu dosyalarınızın resources klasörünün içinde istediğiniz bir yere atın.
@@ -25,10 +25,12 @@ satırını ekleyin.
 ### Önemli Not
 Script'i yaparken üzerinde düzenleme yapabilmeniz için isminin değiştirilememesini zorunlu kılmadım, lütfen ismini değiştirmeyin!
 Kullanım
+
+### Kullanım
 Eğer bir sistemde bir araç oluşturuluyorsa ve oyuncuya anahtar vermek istiyorsanız, düz kontak yapmasını istemiyorsanız araç oluşturulan kod satırının altına bu satırı eklemelisiniz.
 local plate = GetVehicleNumberPlateText(vehicle)
 exports['hsn-araf-locksystem']:AddKeys(plate)
 
 
-Video : https://youtu.be/_nK2pqcbKmQ
-İndirme : https://github.com/slmaraf/hsn-araf-locksystem
+https://youtu.be/_nK2pqcbKmQ | Video
+https://github.com/slmaraf/hsn-araf-locksystem | İndirme Linki
