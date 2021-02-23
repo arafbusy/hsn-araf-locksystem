@@ -11,8 +11,9 @@ Script Hasan'ın yapmış olduğu hotwire sisteminin üzerine geliştirilmiştir
 - Config ve Locale dosyaları oluşturularak düzenli bir yapı sağlanmıştır. Config'den istediğiniz gibi bir şeyleri değiştirebilir, locale ile istediğiniz dile çevirebilirsiniz.
 
 ### Gereksinimler
-https://github.com/FlawwsX/mythic_notify | Mythic Notify
+https://github.com/FlawwsX/mythic_notify | Mythic Notify 
 http://www.mediafire.com/file/0ghzkjpnnllnt95/reload-skillbar.rar/file | Reload Skillbar
+
 https://github.com/t0sic/t0sic_loadingbar | T0sic Loading Bar
 
 ### Kurulum
