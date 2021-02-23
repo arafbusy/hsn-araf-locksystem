@@ -32,5 +32,6 @@ local plate = GetVehicleNumberPlateText(vehicle)
 exports['hsn-araf-locksystem']:AddKeys(plate)
 
 
-https://youtu.be/_nK2pqcbKmQ | Video
+https://youtu.be/_nK2pqcbKmQ | Video 
+
 https://github.com/slmaraf/hsn-araf-locksystem | İndirme Linki
