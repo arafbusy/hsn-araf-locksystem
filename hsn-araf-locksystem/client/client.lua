@@ -3,7 +3,6 @@ ESX = nil
 Keys = {}
 PlayerData = {}
 SearchedVeh = {}
-locked_vehicles = {}
 local disableF = false
 
 Citizen.CreateThread(function()
@@ -278,7 +277,6 @@ Citizen.CreateThread(function()
                     SetVehicleDoorShut(vehicle, 2, false)
                     SetVehicleDoorShut(vehicle, 3, false)
                     SetVehicleDoorsLocked(vehicle, 2)
-                    table.insert(locked_vehicles, vehicle)
                     PlayVehicleDoorCloseSound(vehicle, 1)
                     SetVehicleLights(vehicle, 2)
                     SetVehicleLights(vehicle, 0)
@@ -288,12 +286,6 @@ Citizen.CreateThread(function()
                 elseif lock == 2 then
                     playAnim("anim@mp_player_intmenu@key_fob@", "fob_click_fp", -1, 0)
                     SetVehicleDoorsLocked(vehicle, 1)
-                    for k, v in pairs(locked_vehicles) do
-                        if v == vehicle then
-                            table.remove(locked_vehicles, k)
-                            break
-                        end
-                    end
 					PlayVehicleDoorOpenSound(vehicle, 0)
 					SetVehicleLights(vehicle, 2)
 					SetVehicleLights(vehicle, 0)
