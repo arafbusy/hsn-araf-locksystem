@@ -12,8 +12,8 @@ Specifications
 - A regular structure has been provided by creating Config and Locale files. You can change things from config as you want, and translate them to the language you want with locale.
 
 
-Important Note
-While I was making the script, I did not oblige the name to be changed so that you can edit it, please do not change the name!
+## Important Note
+While I was making the script, I did not oblige the name to be changed so that you can edit it, please do not change the name please!
 
-You can join to my Discord server to get help.
-Discord : https://discord.gg/seh29UZZuK
+## You can join to my Discord server to get help.
+## Discord : https://discord.gg/seh29UZZuK
