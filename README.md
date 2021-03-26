@@ -1,7 +1,6 @@
-[EN]
 Script is developed on the hotwire system made by Hasan. All changes to the script have been made by me.
 
-Specifications
+## Specifications
 - You can lock or unlock your car with L key.
 - You can open the doors of locked vehicles for which you do not have a key by using a lock pick.
 - If a vehicle is uncovered, it can be opened from the inside of the door even if it is locked. So you don't need to use a lock pick.
