@@ -1,39 +1,19 @@
-Script Hasan'ın yapmış olduğu hotwire sisteminin üzerine geliştirilmiştir. Script'in üzerindeki tüm değişiklikler benim tarafımdan yapılmıştır.
+[EN]
+Script is developed on the hotwire system made by Hasan. All changes to the script have been made by me.
 
-### Özellikler
-- Anahtarına sahip olduğunuz araçları L tuşuyla kilitleyebilir veya açabilirsiniz.
-- Anahtarına sahip olmadığınız kilitli araçların kapısını maymuncuk kullanarak açabilirsiniz.
-- Eğer bir aracın üstü açıksa kilitli olsa bile kapının iç tarafından açılabilir. Bu yüzden maymuncuk kullanmanıza gerek kalmaz.
-- Eğer bir aracın kapısı açıksa veya kapısı yoksa içine girilebilir. Kapısı olmayan aracı maymuncuklamanız gerekmez.
-- Aracın içine girdiğinizde anahtara sahip değilseniz düz kontak yapabilir veya aracı arayabilirsiniz.
-- Aracı aradığınızda bulacağınız eşyalar tamamen rastgeledir. İhtimaller şansa göre çok değişkendir.
-- Aracı maymuncukladığınızda skill bar ile yapabilmeniz gerekmektedir. En iyi ihtimalle şanslıysanız üç kere, en kötü ihtimalle 6 kere skill bar tamamlamanız gerekiyor.
-- Config ve Locale dosyaları oluşturularak düzenli bir yapı sağlanmıştır. Config'den istediğiniz gibi bir şeyleri değiştirebilir, locale ile istediğiniz dile çevirebilirsiniz.
-
-### Gereksinimler
-https://github.com/FlawwsX/mythic_notify | Mythic Notify
-
-http://www.mediafire.com/file/0ghzkjpnnllnt95/reload-skillbar.rar/file | Reload Skillbar
-
-https://github.com/t0sic/t0sic_loadingbar | T0sic Loading Bar
-
-### Kurulum
-- Dosyayı indirdikten sonra sunucu dosyalarınızın resources klasörünün içinde istediğiniz bir yere atın.
-- İsmini hsn-araf-locksystem olarak değiştirin, sonundaki main yazısını kaldırın.
-- server.cfg dosyanızda en alta;
-ensure hsn-araf-locksystem
-satırını ekleyin.
-
-### Önemli Not
-Script'i yaparken üzerinde düzenleme yapabilmeniz için isminin değiştirilememesini zorunlu kılmadım, lütfen ismini değiştirmeyin!
-Kullanım
-
-### Kullanım
-Eğer bir sistemde bir araç oluşturuluyorsa ve oyuncuya anahtar vermek istiyorsanız, düz kontak yapmasını istemiyorsanız araç oluşturulan kod satırının altına bu satırı eklemelisiniz.
-local plate = GetVehicleNumberPlateText(vehicle)
-exports['hsn-araf-locksystem']:AddKeys(plate)
+Specifications
+- You can lock or unlock your car with L key.
+- You can open the doors of locked vehicles for which you do not have a key by using a lock pick.
+- If a vehicle is uncovered, it can be opened from the inside of the door even if it is locked. So you don't need to use a lock pick.
+- If a vehicle has an open or no door, it can be entered. So you don't need to use a lock pick.
+- If you do not have the key when you enter the vehicle, you can hotwire or search the vehicle.
+- The items you will find when you search the vehicle are completely random. Probabilities vary greatly depending on luck.
+- When you lock the vehicle, you should be able to do it with the skill bar. At best you have to complete the skill bar three times if you are lucky, if you are unluckiest man at worst 6 times.
+- A regular structure has been provided by creating Config and Locale files. You can change things from config as you want, and translate them to the language you want with locale.
 
 
-https://youtu.be/_nK2pqcbKmQ | Video 
+Important Note
+While I was making the script, I did not oblige the name to be changed so that you can edit it, please do not change the name!
 
-https://github.com/slmaraf/hsn-araf-locksystem | İndirme Linki
+You can join to my Discord server to get help.
+Discord : https://discord.gg/seh29UZZuK
