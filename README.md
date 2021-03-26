@@ -16,4 +16,4 @@ Specifications
 While I was making the script, I did not oblige the name to be changed so that you can edit it, please do not change the name please!
 
 ## You can join to my Discord server to get help.
-## Discord : https://discord.gg/seh29UZZuK
+Discord : https://discord.gg/seh29UZZuK
