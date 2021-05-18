@@ -94,3 +94,8 @@ end)
 ESX.RegisterUsableItem('lockpick', function(source)
     TriggerClientEvent('hsn-araf-locksystem:client:useLockpick', source)
 end)
+
+Citizen.CreateThread(function()
+    Wait(7000)
+    print('^2[hsn-araf-locksystem]^1 Bu sistemi sunucu acikken yeniden baslatmayin!^0')
+end)
