@@ -92,123 +92,126 @@ Citizen.CreateThread(function()
         local wait = 1000
         if IsPedInAnyVehicle(PlayerPedId(),false)  then
             local vehicle = GetVehiclePedIsIn(PlayerPedId())
+            local class = GetVehicleClass(vehicle)
             local Plate = GetVehicleNumberPlateText(vehicle)
             local vehicleCoords = GetOffsetFromEntityInWorldCoords(vehicle, 0.0, 1.25, 0.35)
             if GetPedInVehicleSeat(GetVehiclePedIsIn(PlayerPedId(), false), -1) == PlayerPedId() then
                 if Keys[Plate] ~= true then
-                    wait = 2
-                    if SearchedVeh[Plate] ~= true then
-                        text = _U('hotwire_text_not_searched')
-                    else
-                        text = _U('hotwire_text_searched')
-                    end
-                    if IsControlJustPressed(1, 74) then--H
-                        ESX.TriggerServerCallback('hsn-araf-locksystem:tornavida', function(cb)
-                            if cb ~= nil and cb ~= false then
-                                disableCombat()
-                                disableCarMovements()
-                                disableMovement()
-                                playAnim(Config.AnimDict, Config.AnimName, -1, 1)
-                                SetVehicleAlarm(vehicle, true)
-            					SetVehicleAlarmTimeLeft(vehicle, Config.AlarmTime * 1000)
-                                local finished = exports["reload-skillbar"]:taskBar(3500,math.random(5,10))
-                                if finished ~= 100 then
-                                    ClearPedTasks(GetPlayerPed(-1))
-                                    exports['mythic_notify']:SendAlert('inform', _U('hotwire_failed'))
-                                    EnableAllControlActions(0)
-                                    EnableAllControlActions(1)
-                                    TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'tornavida')
-                                else
-                                    local finished2 = exports["reload-skillbar"]:taskBar(5000,math.random(5,6))
-                                    if finished2 ~= 100 then
-                                        ClearPedTasks(GetPlayerPed(-1))
+                    if class ~= 13 and class ~= 14 and class ~= 15 and class ~= 16 and class ~= 19 and class ~= 21 then
+                        wait = 10
+                        if SearchedVeh[Plate] ~= true then
+                            text = _U('hotwire_text_not_searched')
+                        else
+                            text = _U('hotwire_text_searched')
+                        end
+                        if IsControlJustPressed(1, 74) then--H
+                            ESX.TriggerServerCallback('hsn-araf-locksystem:tornavida', function(cb)
+                                if cb ~= nil and cb ~= false then
+                                    disableCombat()
+                                    disableCarMovements()
+                                    disableMovement()
+                                    playAnim(Config.AnimDict, Config.AnimName, -1, 1)
+                                    SetVehicleAlarm(vehicle, true)
+                                    SetVehicleAlarmTimeLeft(vehicle, Config.AlarmTime * 1000)
+                                    local finished = exports["reload-skillbar"]:taskBar(3500,math.random(5,10))
+                                    if finished ~= 100 then
+                                        ClearPedTasks(PlayerPedId())
                                         exports['mythic_notify']:SendAlert('inform', _U('hotwire_failed'))
                                         EnableAllControlActions(0)
                                         EnableAllControlActions(1)
                                         TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'tornavida')
                                     else
-                                        local finished3 = exports["reload-skillbar"]:taskBar(2000,math.random(15,25))
-                                        if finished3 ~= 100 then
-                                            ClearPedTasks(GetPlayerPed(-1))
+                                        local finished2 = exports["reload-skillbar"]:taskBar(5000,math.random(5,6))
+                                        if finished2 ~= 100 then
+                                            ClearPedTasks(PlayerPedId())
                                             exports['mythic_notify']:SendAlert('inform', _U('hotwire_failed'))
                                             EnableAllControlActions(0)
                                             EnableAllControlActions(1)
                                             TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'tornavida')
                                         else
-                                            if math.random(0, 100) < 25 then
-                                                local finished4 = exports["reload-skillbar"]:taskBar(2000,math.random(15,25))
-                                                if finished4 ~= 100 then
-                                                    ClearPedTasks(GetPlayerPed(-1))
-                                                    exports['mythic_notify']:SendAlert('inform', _U('hotwire_failed'))
-                                                    EnableAllControlActions(0)
-                                                    EnableAllControlActions(1)
-                                                    TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'tornavida')
-                                                else
-                                                    if math.random(0, 100) < 50 then
-                                                        local finished4 = exports["reload-skillbar"]:taskBar(2000,math.random(15,25))
-                                                        if finished4 ~= 100 then
-                                                            ClearPedTasks(GetPlayerPed(-1))
-                                                            exports['mythic_notify']:SendAlert('inform', _U('hotwire_failed'))
-                                                            EnableAllControlActions(0)
-                                                            EnableAllControlActions(1)
-                                                            TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'tornavida')
-                                                        else
-                                                            if math.random(0, 100) < 75 then
-                                                                local finished5 = exports["reload-skillbar"]:taskBar(2000,math.random(15,25))
-                                                                if finished5 ~= 100 then
-                                                                    ClearPedTasks(GetPlayerPed(-1))
-                                                                    exports['mythic_notify']:SendAlert('inform', _U('hotwire_failed'))
-                                                                    EnableAllControlActions(0)
-                                                                    EnableAllControlActions(1)
-                                                                    TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'tornavida')
+                                            local finished3 = exports["reload-skillbar"]:taskBar(2000,math.random(15,25))
+                                            if finished3 ~= 100 then
+                                                ClearPedTasks(PlayerPedId())
+                                                exports['mythic_notify']:SendAlert('inform', _U('hotwire_failed'))
+                                                EnableAllControlActions(0)
+                                                EnableAllControlActions(1)
+                                                TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'tornavida')
+                                            else
+                                                if math.random(0, 100) < 25 then
+                                                    local finished4 = exports["reload-skillbar"]:taskBar(2000,math.random(15,25))
+                                                    if finished4 ~= 100 then
+                                                        ClearPedTasks(PlayerPedId())
+                                                        exports['mythic_notify']:SendAlert('inform', _U('hotwire_failed'))
+                                                        EnableAllControlActions(0)
+                                                        EnableAllControlActions(1)
+                                                        TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'tornavida')
+                                                    else
+                                                        if math.random(0, 100) < 50 then
+                                                            local finished4 = exports["reload-skillbar"]:taskBar(2000,math.random(15,25))
+                                                            if finished4 ~= 100 then
+                                                                ClearPedTasks(PlayerPedId())
+                                                                exports['mythic_notify']:SendAlert('inform', _U('hotwire_failed'))
+                                                                EnableAllControlActions(0)
+                                                                EnableAllControlActions(1)
+                                                                TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'tornavida')
+                                                            else
+                                                                if math.random(0, 100) < 75 then
+                                                                    local finished5 = exports["reload-skillbar"]:taskBar(2000,math.random(15,25))
+                                                                    if finished5 ~= 100 then
+                                                                        ClearPedTasks(PlayerPedId())
+                                                                        exports['mythic_notify']:SendAlert('inform', _U('hotwire_failed'))
+                                                                        EnableAllControlActions(0)
+                                                                        EnableAllControlActions(1)
+                                                                        TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'tornavida')
+                                                                    else
+                                                                        ClearPedTasks(PlayerPedId())
+                                                                        EnableAllControlActions(0)
+                                                                        EnableAllControlActions(1)
+                                                                        AddKeys(Plate)
+                                                                        SetVehicleEngineOn(vehicle,true)
+                                                                        exports['mythic_notify']:SendAlert('inform', _U('hotwire_successful'))
+                                                                    end
                                                                 else
-                                                                    ClearPedTasks(GetPlayerPed(-1))
+                                                                    ClearPedTasks(PlayerPedId())
                                                                     EnableAllControlActions(0)
                                                                     EnableAllControlActions(1)
-                                                                    TriggerServerEvent('hsn-araf-locksystem:addKeys',Plate)
+                                                                    AddKeys(Plate)
                                                                     SetVehicleEngineOn(vehicle,true)
                                                                     exports['mythic_notify']:SendAlert('inform', _U('hotwire_successful'))
                                                                 end
-                                                            else
-                                                                ClearPedTasks(GetPlayerPed(-1))
-                                                                EnableAllControlActions(0)
-                                                                EnableAllControlActions(1)
-                                                                TriggerServerEvent('hsn-araf-locksystem:addKeys',Plate)
-                                                                SetVehicleEngineOn(vehicle,true)
-                                                                exports['mythic_notify']:SendAlert('inform', _U('hotwire_successful'))
                                                             end
+                                                        else
+                                                            ClearPedTasks(PlayerPedId())
+                                                            EnableAllControlActions(0)
+                                                            EnableAllControlActions(1)
+                                                            AddKeys(Plate)
+                                                            SetVehicleEngineOn(vehicle,true)
+                                                            exports['mythic_notify']:SendAlert('inform', _U('hotwire_successful'))
                                                         end
-                                                    else
-                                                        ClearPedTasks(GetPlayerPed(-1))
-                                                        EnableAllControlActions(0)
-                                                        EnableAllControlActions(1)
-                                                        TriggerServerEvent('hsn-araf-locksystem:addKeys',Plate)
-                                                        SetVehicleEngineOn(vehicle,true)
-                                                        exports['mythic_notify']:SendAlert('inform', _U('hotwire_successful'))
                                                     end
+                                                else
+                                                    ClearPedTasks(PlayerPedId())
+                                                    EnableAllControlActions(0)
+                                                    EnableAllControlActions(1)
+                                                    AddKeys(Plate)
+                                                    SetVehicleEngineOn(vehicle,true)
+                                                    exports['mythic_notify']:SendAlert('inform', _U('hotwire_successful'))
                                                 end
-                                            else
-                                                ClearPedTasks(GetPlayerPed(-1))
-                                                EnableAllControlActions(0)
-                                                EnableAllControlActions(1)
-                                                TriggerServerEvent('hsn-araf-locksystem:addKeys',Plate)
-                                                SetVehicleEngineOn(vehicle,true)
-                                                exports['mythic_notify']:SendAlert('inform', _U('hotwire_successful'))
                                             end
                                         end
                                     end
+                                else
+                                    exports['mythic_notify']:SendAlert('inform', _U('tornavida_yok'))
                                 end
-                            else
-                                exports['mythic_notify']:SendAlert('inform', _U('tornavida_yok'))
-                            end
-                        end)
-                    end
-                    if IsControlJustPressed(1, 20) then --Z
-                        if SearchedVeh[Plate] ~= true then
-                            SearchVehicle(Plate)
+                            end)
                         end
+                        if IsControlJustPressed(1, 20) then --Z
+                            if SearchedVeh[Plate] ~= true then
+                                SearchVehicle(Plate)
+                            end
+                        end
+                        DrawText3Ds(vehicleCoords.x,vehicleCoords.y,vehicleCoords.z,text)
                     end
-                    DrawText3Ds(vehicleCoords.x,vehicleCoords.y,vehicleCoords.z,text)
                 end
             end
         end
