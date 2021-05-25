@@ -7,12 +7,14 @@ local disableF = false
 
 Citizen.CreateThread(function()
     while ESX == nil do
-        ESX = exports['es_extended']:getSharedObject()
-        Citizen.Wait(1)
+        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+        Citizen.Wait(0)
     end
+
     while ESX.GetPlayerData().job == nil do
         Citizen.Wait(10)
     end
+
     PlayerData = ESX.GetPlayerData()
 end)
 
@@ -252,22 +254,47 @@ Citizen.CreateThread(function()
 end)
 
 SearchVehicle = function(plate)
-    disableCarMovements()
-    disableCombat()
-    disableMovement()
-    playAnim(Config.AnimDict, Config.AnimName, -1, 1)
-    exports["t0sic_loadingbar"]:StartDelayedFunction(_U('searching_car'), 10000, function()
-        EnableAllControlActions(0)
-        EnableAllControlActions(1)
-        ClearPedTasks(PlayerPedId())
-        TriggerServerEvent('hsn-araf-locksystem:server:SearchVeh', plate)
+    exports['mythic_progbar']:Progress({
+        name = "search_veh_locksystem",
+        duration = 10000,
+        label = _U('searching_car'),
+        useWhileDead = false,
+        canCancel = true,
+        controlDisables = {
+            disableMovement = true,
+            disableCarMovement = true,
+            disableMouse = false,
+            disableCombat = true,
+        },
+        animation = {
+            animDict = Config.AnimDict,
+            anim = Config.AnimName,
+            flags = 1,
+        },
+        prop = {
+            model = "",
+            bone = 18905,
+            coords = { x = 0.10, y = 0.02, z = 0.08 },
+            rotation = { x = -80.0, y = 0.0, z = 0.0 },
+        },
+        propTwo = {
+            model = "",
+            bone = 58866,
+            coords = { x = 0.12, y = 0.0, z = 0.001 },
+            rotation = { x = -150.0, y = 0.0, z = 0.0 },
+        },
+    }, function(cancelled)
+        if not cancelled then
+            ClearPedTasks(PlayerPedId())
+            TriggerServerEvent('hsn-araf-locksystem:server:SearchVeh', plate)
+        end
     end)
 end
 
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(7)
-        if IsControlJustPressed(1,182) then
+        if IsControlJustReleased(1,182) then
             local coords = GetEntityCoords(PlayerPedId())
             vehicle = ESX.Game.GetClosestVehicle()
             local Plate = GetVehicleNumberPlateText(vehicle)
@@ -341,17 +368,37 @@ AddEventHandler('hsn-araf-locksystem:client:useLockpick', function()
 	if DoesEntityExist(vehicle) then
 		isBusy = true
         local spawnCoords = vector3(GetEntryPositionOfDoor(vehicle, 0).x, GetEntryPositionOfDoor(vehicle, 0).y, GetEntryPositionOfDoor(vehicle, 0).z - 1)
-        local scenarioCoords = vector3(GetEntryPositionOfDoor(vehicle, 0).x, GetEntryPositionOfDoor(vehicle, 0).y, GetEntryPositionOfDoor(vehicle, 0).z)
         SetEntityCoords(playerPed, 	spawnCoords, false, false, false, true)
-        TaskStartScenarioAtPosition(playerPed, 'PROP_HUMAN_PARKING_METER', scenarioCoords, GetEntityHeading(playerPed), 10000, false, false)
-        exports["t0sic_loadingbar"]:StartDelayedFunction(_U('lockpick'), 10000, function()
-			SetVehicleDoorsLockedForAllPlayers(vehicle, false)
-            SetVehicleDoorsLocked(vehicle, 1)
-			ClearPedTasksImmediately(playerPed)
-            TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'lockpick')
-			--ESX.ShowNotification(_U('vehicle_unlocked'))
-			exports['mythic_notify']:SendAlert('inform', _U('vehicle_unlocked'))
-			isBusy = false
+        exports['mythic_progbar']:Progress({
+            name = "lockpick_locksystem",
+            duration = 10000,
+            label = _U('lockpick'),
+            useWhileDead = false,
+            canCancel = true,
+            controlDisables = {
+                disableMovement = true,
+                disableCarMovement = true,
+                disableMouse = false,
+                disableCombat = true,
+            },
+            animation = {
+                animDict = "missheistdockssetup1clipboard@base",
+                anim = "base",
+                flags = 49,
+            },
+        }, function(cancelled)
+            if not cancelled then
+                SetVehicleDoorsLockedForAllPlayers(vehicle, false)
+                SetVehicleDoorsLocked(vehicle, 1)
+                ClearPedTasksImmediately(playerPed)
+                TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'lockpick')
+                --ESX.ShowNotification(_U('vehicle_unlocked'))
+                exports['mythic_notify']:SendAlert('inform', _U('vehicle_unlocked'))
+                isBusy = false
+            else
+                isBusy = false
+                TriggerServerEvent('hsn-araf-locksystem:deleteItem', 'lockpick')
+            end
         end)
 	else
 		--ESX.ShowNotification(_U('no_vehicle_nearby'))
