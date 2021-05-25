@@ -1,10 +1,7 @@
-SearchedVehicles = {}
-
 ESX = nil
+TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-TriggerEvent('esx:getSharedObject', function(obj)
-    ESX = obj
-end)
+SearchedVehicles = {}
 
 RegisterServerEvent('hsn-araf-locksystem:addKeys')
 AddEventHandler('hsn-araf-locksystem:addKeys',function(plate)
@@ -38,7 +35,7 @@ AddEventHandler('hsn-araf-locksystem:server:SearchVeh',function(plate)
                 xPlayer.addInventoryItem(item, amount)
                 TriggerClientEvent('mythic_notify:client:SendAlert', src, { type = 'inform', text = _U('found_item', amount, item)} )
             elseif item == Config.Money then
-                xPlayer.addInventoryItem(Config.Money, money)
+                xPlayer.addMoney(money)
                 TriggerClientEvent('mythic_notify:client:SendAlert', src, { type = 'inform', text = _U('found_money', money)} )
             end
         elseif 70 >= math.random(1, 100) and math.random(1, 100) > 40 then
@@ -50,7 +47,7 @@ AddEventHandler('hsn-araf-locksystem:server:SearchVeh',function(plate)
                 xPlayer.addInventoryItem(item, amount)
                 TriggerClientEvent('mythic_notify:client:SendAlert', src, { type = 'inform', text = _U('found_item', amount, item)} )
             elseif item == Config.Money then
-                xPlayer.addInventoryItem(Config.Money, money)
+                xPlayer.addMoney(money)
                 TriggerClientEvent('mythic_notify:client:SendAlert', src, { type = 'inform', text = _U('found_money', money)} )
             end
         elseif 40 >= math.random(1, 100) and math.random(1, 100) > 10 then
@@ -63,7 +60,7 @@ AddEventHandler('hsn-araf-locksystem:server:SearchVeh',function(plate)
                 xPlayer.addInventoryItem(item, amount)
                 TriggerClientEvent('mythic_notify:client:SendAlert', src, { type = 'inform', text = _U('found_item', amount, item)} )
             elseif item == Config.Money then
-                xPlayer.addInventoryItem(Config.Money, money)
+                xPlayer.addMoney(money)
                 TriggerClientEvent('mythic_notify:client:SendAlert', src, { type = 'inform', text = _U('found_money', money)} )
             end
         elseif 10 >= math.random(1, 100) then
@@ -83,7 +80,7 @@ end)
 
 ESX.RegisterServerCallback('hsn-araf-locksystem:tornavida', function(source, cb)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	itemcount = xPlayer.getInventoryItem('tornavida').count
+	local itemcount = xPlayer.getInventoryItem('tornavida').count
 	if itemcount > 0 then
 		cb(true)
 	else
