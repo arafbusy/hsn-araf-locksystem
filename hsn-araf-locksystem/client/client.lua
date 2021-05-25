@@ -303,13 +303,15 @@ end)
 
 Citizen.CreateThread(function()
     while true do
-        local wait = 1250
-        if GetVehiclePedIsTryingToEnter(PlayerPedId()) ~= 0 then 
+        local wait = 1000
+
+        if GetVehiclePedIsTryingToEnter(PlayerPedId()) ~= 0 then
             local curveh = GetVehiclePedIsTryingToEnter(PlayerPedId())
             local pedDriver = GetPedInVehicleSeat(curveh, -1)
             local plate = GetVehicleNumberPlateText(curveh)
-            if Keys[plate] ~= PlayerData.identifier and DoesEntityExist(pedDriver) and IsEntityDead(pedDriver) and not IsPedAPlayer(pedDriver)  then
-                wait = 1
+
+            if Keys[plate] ~= true and DoesEntityExist(pedDriver) and IsEntityDead(pedDriver) and not IsPedAPlayer(pedDriver)  then
+                wait = 100
                 TriggerServerEvent('hsn-araf-locksystem:addKeys',plate)
                 exports['mythic_notify']:SendAlert('inform', _U('took_keys', plate))
             end
